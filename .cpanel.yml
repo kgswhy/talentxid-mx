@@ -1,0 +1,5 @@
+---
+deployment:
+tasks:
+- export DEPLOYPATH=/home/mxsc6835/public_html/talentxid
+- /bin/cp -r * $DEPLOYPATH
