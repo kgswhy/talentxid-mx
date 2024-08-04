@@ -4,164 +4,219 @@ require 'utilities.php';
 // Fungsi untuk validasi dan sanitasi input
 function register_worker($data, $files)
 {
-    global $pdo; // Akses koneksi database PDO yang telah disiapkan sebelumnya
+    global $pdo; // Koneksi database PDO global
 
     try {
-        // Validasi dan sanitasi input untuk personal information
-        $fullname = isset($data['fullname']) ? validate_input($data['fullname']) : null;
-        $shortname = isset($data['shortname']) ? validate_input($data['shortname']) : null;
-        $gender_id = isset($data['gender_id']) ? (int) $data['gender_id'] : null;
-        $phone = isset($data['phone']) ? validate_input($data['phone']) : null;
-        $email = isset($data['email']) ? (validate_email($data['email']) ? $data['email'] : null) : null;
-        $address = isset($data['address']) ? validate_input($data['address']) : null;
-        $birthplace = isset($data['birthplace']) ? validate_input($data['birthplace']) : null;
-        $birthday = isset($data['birthday']) ? $data['birthday'] : null;
-        $religion_id = isset($data['religion_id']) ? (int) $data['religion_id'] : null;
-        $marital_status_id = isset($data['marital_status_id']) ? (int) $data['marital_status_id'] : null;
+        // Data untuk tabel worker
+        $workerData = [
+            'full_name' => isset($data['full_name']) ? validate_input($data['full_name']) : '',
+            'gender' => isset($data['gender']) ? validate_input($data['gender']) : '',
+            'phone_number' => isset($data['phone_number']) ? validate_input($data['phone_number']) : '',
+            'email' => isset($data['email']) ? validate_input($data['email']) : '',
+            'nik' => isset($data['nik']) ? validate_input($data['nik']) : '',
+            'address' => isset($data['address']) ? validate_input($data['address']) : '',
+            'birthplace_date' => isset($data['birthplace_date']) ? validate_input($data['birthplace_date']) : '',
+            'child_number' => isset($data['child_number']) ? validate_input($data['child_number']) : '',
+            'siblings_number' => isset($data['siblings_number']) ? validate_input($data['siblings_number']) : '',
+            'marital_status' => isset($data['marital_status']) ? validate_input($data['marital_status']) : '',
+            'last_education' => isset($data['last_education']) ? validate_input($data['last_education']) : '',
+            'school_name' => isset($data['school_name']) ? validate_input($data['school_name']) : '',
+            'major' => isset($data['major']) ? validate_input($data['major']) : '',
+            'family_card_number' => isset($data['family_card_number']) ? validate_input($data['family_card_number']) : '',
+            'father_name' => isset($data['father_name']) ? validate_input($data['father_name']) : '',
+            'father_occupation' => isset($data['father_occupation']) ? validate_input($data['father_occupation']) : '',
+            'father_education' => isset($data['father_education']) ? validate_input($data['father_education']) : '',
+            'mother_name' => isset($data['mother_name']) ? validate_input($data['mother_name']) : '',
+            'mother_occupation' => isset($data['mother_occupation']) ? validate_input($data['mother_occupation']) : '',
+            'mother_education' => isset($data['mother_education']) ? validate_input($data['mother_education']) : '',
+            'emergency_contact_name' => isset($data['emergency_contact_name']) ? validate_input($data['emergency_contact_name']) : '',
+            'relationship' => isset($data['relationship']) ? validate_input($data['relationship']) : '',
+            'emergency_phone_number' => isset($data['emergency_phone_number']) ? validate_input($data['emergency_phone_number']) : '',
+            'emergency_email' => isset($data['emergency_email']) ? validate_input($data['emergency_email']) : '',
+            'payment_proof' => isset($data['payment_proof']) ? $data['payment_proof'] : null,
+        ];
 
-        // Validasi dan sanitasi input untuk educational background
-        $current_education_level_id = isset($data['current_education_level_id']) ? (int) $data['current_education_level_id'] : null;
-        $current_major = isset($data['current_major']) ? validate_input($data['current_major']) : null;
-        $current_school = isset($data['current_school']) ? validate_input($data['current_school']) : null;
-        $last_education_level_id = isset($data['last_education_level_id']) ? (int) $data['last_education_level_id'] : null;
-        $last_major = isset($data['last_major']) ? validate_input($data['last_major']) : null;
-        $last_school = isset($data['last_school']) ? validate_input($data['last_school']) : null;
-        $english_proficiency = isset($data['english_proficiency']) ? (int) $data['english_proficiency'] : null;
-        $toefl_score = isset($data['toefl_score']) ? (int) $data['toefl_score'] : null;
+        // Transaksi: Mulai transaksi
+        $pdo->beginTransaction();
 
-        // Validasi dan sanitasi input untuk work experience
-        $last_position = isset($data['last_position']) ? validate_input($data['last_position']) : null;
-        $last_company = isset($data['last_company']) ? validate_input($data['last_company']) : null;
-        $desired_position_id = isset($data['desired_position_id']) ? (int) $data['desired_position_id'] : null;
-        $other_position = isset($data['other_position']) ? validate_input($data['other_position']) : null;
-        $last_job_desc = isset($data['last_job_desc']) ? validate_input($data['last_job_desc']) : null;
+        // Query untuk tabel worker
+        $sqlInternJapan = "INSERT INTO intern_japan (
+            full_name, gender, phone_number, email, nik, address, birthplace_date, child_number, siblings_number, 
+            marital_status, last_education, school_name, major, family_card_number, father_name, father_occupation, 
+            father_education, mother_name, mother_occupation, mother_education, emergency_contact_name, relationship, 
+            emergency_phone_number, emergency_email, payment_proof
+        ) VALUES (
+            :full_name, :gender, :phone_number, :email, :nik, :address, :birthplace_date, :child_number, :siblings_number, 
+            :marital_status, :last_education, :school_name, :major, :family_card_number, :father_name, :father_occupation, 
+            :father_education, :mother_name, :mother_occupation, :mother_education, :emergency_contact_name, :relationship, 
+            :emergency_phone_number, :emergency_email, :payment_proof
+        )";
 
-        // Validasi dan sanitasi input untuk documents and portfolio
-        $skill_level = isset($data['skill_level']) ? (int) $data['skill_level'] : null;
-        $internet = isset($data['internet']) ? (int) $data['internet'] : null;
-        $willing = isset($data['willing']) ? (int) $data['willing'] : null;
-        $recruitment = isset($data['recruitment']) ? (int) $data['recruitment'] : null;
-        $referral = isset($data['referral']) ? validate_input($data['referral']) : null;
+        // Eksekusi query untuk tabel worker
+        $stmtWorker = $pdo->prepare($sqlInternJapan);
+        $stmtWorker->execute($workerData);
 
-        // Fungsi untuk mengunggah file
-        function upload_file($file, $directory, $max_file_size_mb)
-        {
-            // Default value for $file_path
-            $file_path = '';
+        // Dapatkan ID pekerja yang baru saja dimasukkan
+        $pdo->commit();
 
-            // Check if file is provided
-            if (!isset($file) || $file['error'] != 0) {
-                return $file_path;
-            }
-
-            // Check if file size exceeds the limit
-            if ($file['size'] > $max_file_size_mb * 1024 * 1024) {
-                return "File size exceeds the limit of {$max_file_size_mb} MB.";
-            }
-
-            $target_file = $directory . basename($file['name']);
-            $final_path = '../../' . $target_file; // Final path to be inserted into the database
-            if (move_uploaded_file($file['tmp_name'], $final_path)) {
-                $file_path = $target_file; // Update the $file_path value if successfully uploaded
-            }
-
-            return $file_path;
-        }
-
-        // Maximum file size for introduction file (in MB)
-        $max_intro_size_mb = 15;
-
-        // Upload introduction file and get its path
-        $introduction_path = upload_file($files['introduction'] ?? null, './introduction/', $max_intro_size_mb);
-
-        // Upload CV file and get its path
-        $cv_path = upload_file($files['cv'] ?? null, './cvWorker/', 10);
-
-        // Upload portfolio file and get its path
-        $portofolio_path = upload_file($files['portfolio'] ?? null, './portfolio/', 10);
-
-        // Handle cases where the upload might have failed or was not provided
-        if (is_string($introduction_path) && strpos($introduction_path, 'File size exceeds') === 0) {
-            // Handle file size error for introduction
-            // You might want to return or handle this error
-            echo json_encode(['success' => false, 'error' => $introduction_path]);
-            exit();
-        }
-
-        if (is_string($cv_path) && strpos($cv_path, 'File size exceeds') === 0) {
-            // Handle file size error for CV
-            // You might want to return or handle this error
-            echo json_encode(['success' => false, 'error' => $cv_path]);
-            exit();
-        }
-
-        if (is_string($portofolio_path) && strpos($portofolio_path, 'File size exceeds') === 0) {
-            // Handle file size error for portfolio
-            // You might want to return or handle this error
-            echo json_encode(['success' => false, 'error' => $portofolio_path]);
-            exit();
-        }
-
-        // Use $introduction_path, $cv_path, and $portfolio_path as needed
-        // If files were not uploaded, their paths will be empty strings
-
-        // Simpan data ke dalam tabel worker
-        $sql = "INSERT INTO worker (
-    fullname, shortname, gender_id, phone, email, address, birthplace, birthday, religion_id, marital_status_id,
-    current_education_level_id, current_major, current_school,
-    last_education_level_id, last_major, last_school,
-    english_proficiency, toefl_score, last_position, last_company,
-    last_job_desc, desired_position_id, position_remark, skill_level, internet,
-    willing, recruitment, introduction, cv, portofolio, referral,
-    status_worker_id
-) VALUES (
-    :fullname, :shortname, :gender_id, :phone, :email, :address, :birthplace, :birthday, :religion_id, :marital_status_id,
-    :current_education_level_id, :current_major, :current_school,
-    :last_education_level_id, :last_major, :last_school,
-    :english_proficiency, :toefl_score, :last_position, :last_company,
-    :last_job_desc, :desired_position_id, :position_remark, :skill_level, :internet,
-    :willing, :recruitment, :introduction, :cv, :portofolio, :referral,
-    '1'  
-)";
-
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            ':fullname' => $fullname,
-            ':shortname' => $shortname,
-            ':gender_id' => $gender_id,
-            ':phone' => $phone,
-            ':email' => $email,
-            ':address' => $address,
-            ':birthplace' => $birthplace,
-            ':birthday' => $birthday,
-            ':religion_id' => $religion_id,
-            ':marital_status_id' => $marital_status_id,
-            ':current_education_level_id' => $current_education_level_id,
-            ':current_major' => $current_major,
-            ':current_school' => $current_school,
-            ':last_education_level_id' => $last_education_level_id,
-            ':last_major' => $last_major,
-            ':last_school' => $last_school,
-            ':english_proficiency' => $english_proficiency,
-            ':toefl_score' => $toefl_score,
-            ':last_position' => $last_position,
-            ':last_company' => $last_company,
-            ':last_job_desc' => $last_job_desc,
-            ':desired_position_id' => $desired_position_id,
-            ':position_remark' => $other_position,
-            ':skill_level' => $skill_level,
-            ':internet' => $internet,
-            ':willing' => $willing,
-            ':recruitment' => $recruitment,
-            ':introduction' => $introduction_path,
-            ':cv' => $cv_path,
-            ':portofolio' => $portofolio_path,
-            ':referral' => $referral,
-        ]);
-        return true; // Sukses
+        return true; // Registrasi berhasil
     } catch (PDOException $e) {
+        // Transaksi: Rollback jika terjadi kesalahan
+        $pdo->rollback();
         echo 'Worker Registration Error: ' . $e->getMessage(); // Log kesalahan
-        return false; // Gagal
+        return false; // Registrasi gagal
+    }
+}
+
+function register_intern($data, $files)
+{
+    global $pdo; // Koneksi database PDO global
+
+    try {
+        // Handle file upload for payment_proof
+        $paymentProofPath = null;
+        if (isset($files['payment_proof']) && $files['payment_proof']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = 'payment_proof/'; // Directory to save the uploaded file
+            $paymentProofPath = $uploadDir . basename($files['payment_proof']['name']);
+            if (!move_uploaded_file($files['payment_proof']['tmp_name'], $paymentProofPath)) {
+                throw new Exception('Failed to upload file.');
+            }
+
+            // Modify the path format
+            $paymentProofPath = './function/' . $paymentProofPath;
+        }
+
+        // Upload foto
+        $fotoPath = null;
+        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = 'foto/'; // Directory untuk menyimpan file yang diupload
+            $fotoPath = $uploadDir . basename($_FILES['foto']['name']);
+            if (!move_uploaded_file($_FILES['foto']['tmp_name'], $fotoPath)) {
+                throw new Exception('Failed to upload foto file.');
+            }
+            $fotoPath = './function/' . $fotoPath; // Modifikasi format path jika diperlukan
+        }
+
+        // Upload KTP
+        $ktpPath = null;
+        if (isset($_FILES['ktp']) && $_FILES['ktp']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = 'ktp/'; // Directory untuk menyimpan file yang diupload
+            $ktpPath = $uploadDir . basename($_FILES['ktp']['name']);
+            if (!move_uploaded_file($_FILES['ktp']['tmp_name'], $ktpPath)) {
+                throw new Exception('Failed to upload KTP file.');
+            }
+            $ktpPath = './function/' . $ktpPath; // Modifikasi format path jika diperlukan
+        }
+
+        // Upload Akte Kelahiran
+        $akteKelahiranPath = null;
+        if (isset($_FILES['akte_kelahiran']) && $_FILES['akte_kelahiran']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = 'akte_kelahiran/'; // Directory untuk menyimpan file yang diupload
+            $akteKelahiranPath = $uploadDir . basename($_FILES['akte_kelahiran']['name']);
+            if (!move_uploaded_file($_FILES['akte_kelahiran']['tmp_name'], $akteKelahiranPath)) {
+                throw new Exception('Failed to upload Akte Kelahiran file.');
+            }
+            $akteKelahiranPath = './function/' . $akteKelahiranPath; // Modifikasi format path jika diperlukan
+        }
+
+        // Upload Ijazah
+        $ijazahPath = null;
+        if (isset($_FILES['ijazah']) && $_FILES['ijazah']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = 'ijazah/'; // Directory untuk menyimpan file yang diupload
+            $ijazahPath = $uploadDir . basename($_FILES['ijazah']['name']);
+            if (!move_uploaded_file($_FILES['ijazah']['tmp_name'], $ijazahPath)) {
+                throw new Exception('Failed to upload Ijazah file.');
+            }
+            $ijazahPath = './function/' . $ijazahPath; // Modifikasi format path jika diperlukan
+        }
+
+        // Data untuk tabel worker
+        $workerData = [
+            'full_name' => isset($data['full_name']) ? validate_input($data['full_name']) : '',
+            'gender' => isset($data['gender']) ? validate_input($data['gender']) : '',
+            'phone_number' => isset($data['phone_number']) ? validate_input($data['phone_number']) : '',
+            'email' => isset($data['email']) ? validate_input($data['email']) : '',
+            'nik' => isset($data['nik']) ? validate_input($data['nik']) : '',
+            'foto' => $fotoPath,
+            'ktp' => $ktpPath,
+            'akte_kelahiran' => $akteKelahiranPath,
+            'ijazah' => $ijazahPath,
+            'address' => isset($data['address']) ? validate_input($data['address']) : '',
+            'birthplace_date' => isset($data['birthplace_date']) ? validate_input($data['birthplace_date']) : '',
+            'child_number' => isset($data['child_number']) ? validate_input($data['child_number']) : '',
+            'siblings_number' => isset($data['siblings_number']) ? validate_input($data['siblings_number']) : '',
+            'marital_status' => isset($data['marital_status']) ? validate_input($data['marital_status']) : '',
+            'last_education' => isset($data['last_education']) ? validate_input($data['last_education']) : '',
+            'school_name' => isset($data['school_name']) ? validate_input($data['school_name']) : '',
+            'major' => isset($data['major']) ? validate_input($data['major']) : '',
+            'family_card_number' => isset($data['family_card_number']) ? validate_input($data['family_card_number']) : '',
+            'father_name' => isset($data['father_name']) ? validate_input($data['father_name']) : '',
+            'father_occupation' => isset($data['father_occupation']) ? validate_input($data['father_occupation']) : '',
+            'father_education' => isset($data['father_education']) ? validate_input($data['father_education']) : '',
+            'mother_name' => isset($data['mother_name']) ? validate_input($data['mother_name']) : '',
+            'mother_occupation' => isset($data['mother_occupation']) ? validate_input($data['mother_occupation']) : '',
+            'mother_education' => isset($data['mother_education']) ? validate_input($data['mother_education']) : '',
+            'emergency_contact_name' => isset($data['emergency_contact_name']) ? validate_input($data['emergency_contact_name']) : '',
+            'relationship' => isset($data['relationship']) ? validate_input($data['relationship']) : '',
+            'emergency_phone_number' => isset($data['emergency_phone_number']) ? validate_input($data['emergency_phone_number']) : '',
+            'emergency_email' => isset($data['emergency_email']) ? validate_input($data['emergency_email']) : '',
+            'payment_proof' => $paymentProofPath,
+        ];
+
+        // Transaksi: Mulai transaksi
+        $pdo->beginTransaction();
+
+        // Query untuk tabel worker
+        $sqlInternJapan = "INSERT INTO intern_japan (
+            full_name, gender, phone_number, email, nik, foto, ktp, akte_kelahiran, ijazah, address, birthplace_date, child_number, siblings_number, 
+            marital_status, last_education, school_name, major, family_card_number, father_name, father_occupation, 
+            father_education, mother_name, mother_occupation, mother_education, emergency_contact_name, relationship, 
+            emergency_phone_number, emergency_email, payment_proof
+        ) VALUES (
+            :full_name, :gender, :phone_number, :email, :nik, :foto, :ktp, :akte_kelahiran, :ijazah,:address, :birthplace_date, :child_number, :siblings_number, 
+            :marital_status, :last_education, :school_name, :major, :family_card_number, :father_name, :father_occupation, 
+            :father_education, :mother_name, :mother_occupation, :mother_education, :emergency_contact_name, :relationship, 
+            :emergency_phone_number, :emergency_email, :payment_proof
+        )";
+
+        // Eksekusi query untuk tabel worker
+        $stmtWorker = $pdo->prepare($sqlInternJapan);
+        $stmtWorker->execute($workerData);
+
+        // Commit the transaction
+        $pdo->commit();
+
+        return true; // Registrasi berhasil
+    } catch (PDOException $e) {
+        // Transaksi: Rollback jika terjadi kesalahan
+        $pdo->rollback();
+        echo 'Worker Registration Error: ' . $e->getMessage(); // Log kesalahan
+        return false; // Registrasi gagal
+    } catch (Exception $e) {
+        // Handle general exceptions
+        $pdo->rollback();
+        echo 'Error: ' . $e->getMessage(); // Log kesalahan
+        return false; // Registrasi gagal
+    }
+}
+
+function get_interns()
+{
+    global $pdo; // Koneksi database PDO global
+
+    try {
+        // Query untuk mendapatkan data dari tabel intern_japan
+        $sql = 'SELECT * FROM intern_japan';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+
+        // Fetch all rows as an associative array
+        $interns = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $interns;
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage(); // Log kesalahan
+        return false;
     }
 }
 

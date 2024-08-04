@@ -1,7 +1,7 @@
 <?php
 // db_connection.php
 $host = 'localhost';
-$dbname = 'mx';
+$dbname = 'talentxid';
 $username = 'root';
 $password = '';
 

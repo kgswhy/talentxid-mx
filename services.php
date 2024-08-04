@@ -47,34 +47,35 @@ require './function/getData.php';
   
    <!-- Navbar Start -->
    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-    <a href="index.php" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-        <h2 class="m-0 text-primary"><img src="img/logo.png" width="200px" /></h2>
-    </a>
-    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="index.php" class="nav-item nav-link ">Home</a>
-            <a href="about.html" class="nav-item nav-link">About Us</a>
-            <a href="services.php" class="nav-item nav-link active">Services</a>
-            <a href="job.php" class="nav-item nav-link ">Job Opportunities</a>
-            <a href="blog.php" class="nav-item nav-link">Blog</a>
-            <a href="contact.html" class="nav-item nav-link">Contact</a>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle btn btn-primary py-4 px-lg-5 d-none d-lg-block" data-bs-toggle="dropdown">Register</a>
-                <div class="dropdown-menu fade-down m-0">
-                    <a href="registercompany.php" class="dropdown-item">as Company</a>
-                    <a href="registerworker.php" class="dropdown-item">as Worker</a>
+        <a href="index.php" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <h2 class="m-0 text-primary"><img src="img/logo.png" width="200px" /></h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="index.php" class="nav-item nav-link ">Home</a>
+                <a href="about.html" class="nav-item nav-link ">About Us</a>
+                <a href="services.php" class="nav-item nav-link active">Services</a>
+                <a href="job.php" class="nav-item nav-link">Job Opportunities</a>
+                <a href="blog.php" class="nav-item nav-link ">Blog</a>
+                <a href="contact.html" class="nav-item nav-link ">Contact</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle btn btn-primary py-4 px-lg-5 "
+                        data-bs-toggle="dropdown">Register</a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <!-- <a href="registercompany.php" class="dropdown-item ">as Company</a> -->
+                        <a href="registermigrantworker.php" class="dropdown-item ">as Worker</a>
+                    </div>
                 </div>
+                <a href="contact.html" class="nav-item nav-link"></a>
             </div>
-            <a href="contact.html" class="nav-item nav-link"></a>
+            <!--a href="" style="color:#000 !important;background-color:#fff !important;border:0px !important;" class="btn btn-primary py-4 px-lg-5 ">Register as Talent<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="" class="btn btn-primary py-4 px-lg-5 ">Register as Company<i class="fa fa-arrow-right ms-3"></i></a-->
         </div>
-        <!--a href="" style="color:#000 !important;background-color:#fff !important;border:0px !important;" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Register as Talent<i class="fa fa-arrow-right ms-3"></i></a>
-        <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Register as Company<i class="fa fa-arrow-right ms-3"></i></a-->
-    </div>
-</nav>
-<!-- Navbar End -->
+    </nav>
+    <!-- Navbar End -->
 
 
     <!-- Header Start -->
@@ -191,25 +192,29 @@ require './function/getData.php';
 
 
 <!-- Footer Start -->
-    <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+<div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="row g-5">
-				<div class="col-lg-6 col-md-6">
+                <div class="col-lg-6 col-md-6">
                     <h4 class="text-white mb-3">About Us</h4>
                     <div class="row g-2 pt-2">
-                        <p>Work from Anywhere is a program by MX Solution. We connects highly skilled professionals with businesses seeking remote talent solutions.</p>
-						<p>We bridge talent across borders by providing exceptional remote work opportunities. We understand the unique cultural and professional synergies between Indonesia and other countries and leverage this knowledge to foster smooth, productive working relationships.</p>
+                        <p>We connects highly skilled professionals with businesses seeking remote talent solutions.</p>
+                        <p>We bridge talent across borders by providing exceptional remote work opportunities. We
+                            understand the unique cultural and professional synergies between Indonesia and other
+                            countries and leverage this knowledge to foster smooth, productive working relationships.
+                        </p>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <h4 class="text-white mb-3">Contact</h4>
                     <p><b>MX Global Pte Ltd</b><br>
-					Midview City, 22 Sin Ming Lane, #06-76, Postal 573969
-					</p>
-					<p><b>PT Max Solution Indonesia</b>
-					<br>Jakarta, Indonesia<br>
-					+62 815 9221 333<br>
-					hello@mxsolution.id</p>
+                        Midview City, 22 Sin Ming Lane, #06-76, Postal 573969
+                    </p>
+                    <p><b>PT Max Solution Indonesia</b>
+                        <br>Jakarta, Indonesia<br>
+                        +62 815 9221 333<br>
+                        hello@mxsolution.id
+                    </p>
                 </div>
             </div>
         </div>
@@ -220,7 +225,7 @@ require './function/getData.php';
                         © 2024 MX Global Pte Ltd | PT Max Solution Indonesia
                     </div>
                     <div class="col-md-6 text-center text-md-end">
-                        
+
                     </div>
                 </div>
             </div>

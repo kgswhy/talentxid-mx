@@ -24,7 +24,7 @@ $education_level_query->execute();
 $education_levels = $education_level_query->fetchAll(PDO::FETCH_ASSOC);
 
 // Mendapatkan data desired position
-$position_query = $pdo->prepare("SELECT id, status, name, image_talents, image_jobs, description, responsibilities FROM position_table");
+$position_query = $pdo->prepare("SELECT id, status, name,image_jobs, description, responsibilities FROM position_table");
 $position_query->execute();
 $positions = $position_query->fetchAll(PDO::FETCH_ASSOC);
 
@@ -41,5 +41,13 @@ $job_levels = $job_level_query->fetchAll(PDO::FETCH_ASSOC);
 $rating_options_query = $pdo->prepare("SELECT rating_id, rating_value FROM rating_options");
 $rating_options_query->execute();
 $rating_options = $rating_options_query->fetchAll(PDO::FETCH_ASSOC); 
+
+$maid_skills_query = $pdo->prepare("SELECT care_of_baby, care_of_children, care_of_elderly, care_of_disabled, general_housework, cooking, ironing, simple_sewing, gardening, wash_car, accompany_employer, care_for_pets FROM maid_skills");
+$maid_skills_query->execute();
+$maid_skills = $maid_skills_query->fetchAll(PDO::FETCH_ASSOC); 
+
+$language_query = $pdo->prepare("SELECT id, name FROM language");
+$language_query->execute();
+$language = $language_query->fetchAll(PDO::FETCH_ASSOC); 
 
 ?>

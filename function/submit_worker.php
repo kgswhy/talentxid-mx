@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result === true) {
             // Jika berhasil, kirim respons JSON
             echo "<script>alert('Registration successful!');</script>";
-            echo "<script>window.location = '../registerworker.php';</script>";
+            echo "<script>window.location = '../registermigrantworker.php';</script>";
         } else {
            
         }

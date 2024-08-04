@@ -64,7 +64,7 @@ require './function/getData.php';
                 <a href="blog.php" class="nav-item nav-link ">Blog</a>
                 <a href="contact.html" class="nav-item nav-link ">Contact</a>
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle btn btn-primary py-4 px-lg-5 d-none d-lg-block"
+                    <a href="#" class="nav-link dropdown-toggle btn btn-primary py-4 px-lg-5 "
                         data-bs-toggle="dropdown">Register</a>
                     <div class="dropdown-menu fade-down m-0">
                         <a href="registercompany.php" class="dropdown-item ">as Company</a>
@@ -73,8 +73,8 @@ require './function/getData.php';
                 </div>
                 <a href="contact.html" class="nav-item nav-link"></a>
             </div>
-            <!--a href="" style="color:#000 !important;background-color:#fff !important;border:0px !important;" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Register as Talent<i class="fa fa-arrow-right ms-3"></i></a>
-            <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Register as Company<i class="fa fa-arrow-right ms-3"></i></a-->
+            <!--a href="" style="color:#000 !important;background-color:#fff !important;border:0px !important;" class="btn btn-primary py-4 px-lg-5 ">Register as Talent<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="" class="btn btn-primary py-4 px-lg-5 ">Register as Company<i class="fa fa-arrow-right ms-3"></i></a-->
         </div>
     </nav>
     <!-- Navbar End -->
@@ -362,7 +362,7 @@ require './function/getData.php';
                                 <label for="willing">Willing to Relocate:</label>
                                 <select id="willing" name="willing" class="form-control">
                                     <option value="" selected>Are You Willing to Have Another Full Time Job When
-                                        Do This Remote Internship?</option>
+                                        Do This Remote Full-Time?</option>
                                     <option value="1">Yes</option>
                                     <option value="2">No</option>
                                 </select>
@@ -374,6 +374,11 @@ require './function/getData.php';
                                     </option>
                                     <option value="1">Yes</option>
                                     <option value="2">No</option>
+                                    <?php
+                                    foreach ($maid_skills as $level) {
+                                        echo "<option value=\"{$level['id']}\">{$level['name']}</option>";
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>
@@ -422,8 +427,7 @@ require './function/getData.php';
                 <div class="col-lg-6 col-md-6">
                     <h4 class="text-white mb-3">About Us</h4>
                     <div class="row g-2 pt-2">
-                        <p>Work from Anywhere is a program by MX Solution. We connects highly skilled professionals with
-                            businesses seeking remote talent solutions.</p>
+                        <p>We connects highly skilled professionals with businesses seeking remote talent solutions.</p>
                         <p>We bridge talent across borders by providing exceptional remote work opportunities. We
                             understand the unique cultural and professional synergies between Indonesia and other
                             countries and leverage this knowledge to foster smooth, productive working relationships.

@@ -49,36 +49,37 @@ $posts = getPosts();
     <!-- Spinner End -->
 
 
-     <!-- Navbar Start -->
-     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-    <a href="index.php" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-        <h2 class="m-0 text-primary"><img src="img/logo.png" width="200px" /></h2>
-    </a>
-    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="index.php" class="nav-item nav-link ">Home</a>
-            <a href="about.html" class="nav-item nav-link">About Us</a>
-            <a href="services.php" class="nav-item nav-link">Services</a>
-            <a href="job.php" class="nav-item nav-link">Job Opportunities</a>
-            <a href="blog.php" class="nav-item nav-link active">Blog</a>
-            <a href="contact.html" class="nav-item nav-link ">Contact</a>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle btn btn-primary py-4 px-lg-5 d-none d-lg-block" data-bs-toggle="dropdown">Register</a>
-                <div class="dropdown-menu fade-down m-0">
-                    <a href="registercompany.php" class="dropdown-item">as Company</a>
-                    <a href="registerworker.php" class="dropdown-item">as Worker</a>
+      <!-- Navbar Start -->
+  <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        <a href="index.php" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <h2 class="m-0 text-primary"><img src="img/logo.png" width="200px" /></h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="index.php" class="nav-item nav-link ">Home</a>
+                <a href="about.html" class="nav-item nav-link ">About Us</a>
+                <a href="services.php" class="nav-item nav-link">Services</a>
+                <a href="job.php" class="nav-item nav-link ">Job Opportunities</a>
+                <a href="blog.php" class="nav-item nav-link active">Blog</a>
+                <a href="contact.html" class="nav-item nav-link ">Contact</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle btn btn-primary py-4 px-lg-5 "
+                        data-bs-toggle="dropdown">Register</a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <!-- <a href="registercompany.php" class="dropdown-item ">as Company</a> -->
+                        <a href="registermigrantworker.php" class="dropdown-item ">as Worker</a>
+                    </div>
                 </div>
+                <a href="contact.html" class="nav-item nav-link"></a>
             </div>
-            <a href="contact.html" class="nav-item nav-link"></a>
+            <!--a href="" style="color:#000 !important;background-color:#fff !important;border:0px !important;" class="btn btn-primary py-4 px-lg-5 ">Register as Talent<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="" class="btn btn-primary py-4 px-lg-5 ">Register as Company<i class="fa fa-arrow-right ms-3"></i></a-->
         </div>
-        <!--a href="" style="color:#000 !important;background-color:#fff !important;border:0px !important;" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Register as Talent<i class="fa fa-arrow-right ms-3"></i></a>
-        <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Register as Company<i class="fa fa-arrow-right ms-3"></i></a-->
-    </div>
-</nav>
-<!-- Navbar End -->
+    </nav>
+    <!-- Navbar End -->
 
 
     <!-- Header Start -->
@@ -155,8 +156,7 @@ $posts = getPosts();
                 <div class="col-lg-6 col-md-6">
                     <h4 class="text-white mb-3">About Us</h4>
                     <div class="row g-2 pt-2">
-                        <p>Work from Anywhere is a program by MX Solution. We connects highly skilled professionals with
-                            businesses seeking remote talent solutions.</p>
+                        <p>We connects highly skilled professionals with businesses seeking remote talent solutions.</p>
                         <p>We bridge talent across borders by providing exceptional remote work opportunities. We
                             understand the unique cultural and professional synergies between Indonesia and other
                             countries and leverage this knowledge to foster smooth, productive working relationships.

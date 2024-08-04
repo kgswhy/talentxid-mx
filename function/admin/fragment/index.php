@@ -1,26 +1,6 @@
 <?php
 require '../../auth_function.php';
 require '../../worker_function.php';
-require '../../company_function.php';
-require '../../job_function.php';
-
-// Memulai sesi
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
-// Memeriksa apakah admin telah login
-if (!is_admin_logged_in()) {
-    // Jika tidak, arahkan ke halaman login
-    header("Location: ../login.php");
-    exit();
-}
-
-$totalCompanies = get_total_companies();
-$totalWorkers = get_total_workers();
-$totalQuota = get_total_quota();
-$totalJobOpportunities = get_total_job_opportunities();
-$totalPositions = get_total_positions();
 ?>
 
 
